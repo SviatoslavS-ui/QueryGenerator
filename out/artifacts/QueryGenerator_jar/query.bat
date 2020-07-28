@@ -1,0 +1,1 @@
+java -jar C:\Users\SviatoslavS\GitHub\QueryGenerator\out\artifacts\QueryGenerator_jar\QueryGenerator.jar

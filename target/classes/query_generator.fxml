@@ -12,18 +12,18 @@
       <AnchorPane layoutX="32.0" layoutY="53.0" prefHeight="740.0" prefWidth="709.0" style="-fx-background-color: #fafafa;">
          <children>
             <TextField fx:id="file_name" layoutX="21.0" layoutY="55.0" prefHeight="25.0" prefWidth="271.0" style="-fx-background-color: #6666;" />
-            <Button fx:id="parse_button" layoutX="395.0" layoutY="35.0" mnemonicParsing="false" onAction="#parseButtonClicked" prefHeight="90.0" prefWidth="221.0" text="TRANSLATE">
+            <Button fx:id="parse_button" layoutX="410.0" layoutY="64.0" mnemonicParsing="false" onAction="#parseButtonClicked" prefHeight="121.0" prefWidth="221.0" text="TRANSLATE">
                <font>
                   <Font name="Consolas Bold" size="24.0" />
                </font>
             </Button>
-            <Label layoutX="32.0" layoutY="28.0" prefHeight="19.0" prefWidth="163.0" text="excel file name">
+            <Label layoutX="32.0" layoutY="28.0" prefHeight="19.0" prefWidth="258.0" text="excel file name (*.xlsx)">
                <font>
                   <Font name="Courier New" size="16.0" />
                </font>
             </Label>
             <TextArea fx:id="output_area" layoutX="32.0" layoutY="210.0" prefHeight="503.0" prefWidth="642.0" />
-            <Button fx:id="copy_button" layoutX="32.0" layoutY="141.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="106.0" text="Ctrl + C">
+            <Button fx:id="copy_button" layoutX="32.0" layoutY="141.0" mnemonicParsing="false" onAction="#copyToClipboardButton" prefHeight="44.0" prefWidth="184.0" text="Copy to clipboard">
                <font>
                   <Font size="18.0" />
                </font>

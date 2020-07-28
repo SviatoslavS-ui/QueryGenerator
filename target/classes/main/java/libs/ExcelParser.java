@@ -37,6 +37,7 @@ public class ExcelParser {
             }
             Iterator<Cell> cells = row.iterator();
             Iterator<Cell> titleCell = firstRow.iterator();
+            result += "EXISTS( select * from GamesPrizes where ";
             while (cells.hasNext()) {
                 Cell cell = cells.next();
                 Cell cell1 = titleCell.next();
@@ -46,20 +47,25 @@ public class ExcelParser {
                         result += cell1.getStringCellValue()+" = '" + cell.getStringCellValue() + "' ";
                         if (cells.hasNext()) {
                             result += "and ";
+                        } else {
+                            result += ")";
                         }
                         break;
                     case Cell.CELL_TYPE_NUMERIC:
                         result += cell1.getStringCellValue()+" = " + cell.getNumericCellValue() + " ";
                         if (cells.hasNext()) {
                             result += "and ";
+                        } else {
+                            result += ")";
                         }
                         break;
                     default:
-                        result += "|";
                         break;
                 }
             }
-            result += "\n";
+            if (iteratorRow.hasNext()) {
+                result += "\n AND ";
+            }
         }
         return result;
     }
