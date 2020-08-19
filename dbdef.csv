@@ -1,0 +1,81 @@
+Column Name;Value
+Game ID;1129
+Game Name;Shamrock Winnings
+gameSupportedPlatforms;ACSW
+gameEnabledPlatforms;ACSW
+Supported play modes;DPM
+Wagering Percentage;100.00
+Category;C
+BarType;S
+Theoretical STD;0.00
+Theoretical RTP Percentage;93.00
+IsAccumulativeNoOfWinTicketsSupported;1
+Max Prize Factor Depositors;10000.00
+Max Prize Factor NON Depositors;10000.00
+Max No of bets free games;1
+usePayoutTable;0
+isSubCardsSupported;1
+isMultiStepGame;0
+isIntermediateWallet;0
+isGambleRoundSupported;0
+isPLSRequired;0
+isPrizeFactorChangeable;0
+isFreeGameSupported;1
+IsLimitedSeriesSupportedByExternalGameProvider;1
+showHistory;1
+LimitedBetsListSettings;D
+Limited Bets List;1
+Brand Limited Bets List;
+GameVerticalTypeID;246
+gameStatus;N
+MobileGameTechnology;HTML5_PIXI
+WebGameTechnology;HTML5_PIXI
+scratchVisualEffect;S
+WebScreenResolution;1280X720
+MobileScreenResolution;1280X720
+gameCategories;All Games,Draw Games,All Games,Draw Games
+gameFamilyMainGroup;Scratch
+gameFamilySubGroup;Scratch
+excludedCountriesList;
+Bet Denominations;0.10,0.25,0.50,1.00,2.00,5.00,10.00
+Default Bet Depositors;0.10
+Default Bet NON Depositors;0.10
+Default No Of Bets;1
+Max No Of Bets;1
+Max Prize Limit;
+Max bet denomination;10.00
+Max bet denomination VIP;10.00
+VIP Min Bet;0.10
+Practice Default Bet;0.10
+Free Games Limited Bets List;1
+Brand ID;Brand ID
+Brand Bet Denominations;0.10,0.25,0.50,1.00,2.00,5.00,10.00
+Brand Default Bet Depositors;0.10
+Brand Default Bet NON Depositors;0.10
+Brand Default No Of Bets;1.00
+Brand Max No Of Bets;
+Brand Max Prize Limit;100000.00
+helpPageCopyFromGenericToMichigan;0
+helpPagesPayoutTableMode;N
+helpShowRTP;0
+helpShowRTPMode;N
+helpShowCardPrizes;0
+helpShowBetDenominationsList;0
+Game Type;SuperMoneyMatch
+The game sub type name;
+validateSingleBetAmount;0
+hasAdditionalGameParameters;0
+hasPrizeForEachZone;0
+hasMasterZone;0
+requireParameters;0
+randomTo;0
+randomFrom;0
+randomType;P
+engineParam1;0
+maxImageNo;0
+noOfZones;0
+noOfImagesPerZone;0
+maxCallsToRNG;1
+IsMultiSubGame;0
+Sub Game Name;
+Sub Game Bet Denominations;
