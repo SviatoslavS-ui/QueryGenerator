@@ -9,37 +9,28 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class CsvParser {
+    protected String result;
 
     public String parse(String filename) throws IOException {
         CSVReader csvReader = null;
-        String result = "EXISTS(select * from Games where ";
-        String[] nextRecord;
-        boolean isFirstNumber = true;
-        boolean isEmptyNumber = true;
+        String[] nextRecord = null;
+
+        result = "EXISTS(select * from Games where ";
 
         FileReader fileReader = new FileReader(filename);
         CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
         csvReader = new CSVReaderBuilder(fileReader).withCSVParser(parser).build();
+        if ((nextRecord = csvReader.readNext()) == null) throw new IOException();
 
-        while ((nextRecord = csvReader.readNext()) != null) {
-            if (isFirstNumber) {
-                nextRecord = csvReader.readNext();
-                isFirstNumber = false;
-            }
-            if (!isEmptyNumber) {
-                result += "and ";
-            }
-            if (nextRecord[1] == null || nextRecord[1].trim().length() == 0) {
-                isEmptyNumber = true;
-                break;
-            } else {
-                result += nextRecord[0] + " = " + nextRecord[1] + " ";
-                isEmptyNumber = false;
-            }
-
-        }
-        result = result.substring(0, result.length() - 4);
-        result += ")";
+        while ((nextRecord = csvReader.readNext()) != null) updateStringNewRecord(nextRecord[0], nextRecord[1]);
+        result = result.substring(0, result.length() - 4) + ")";
         return result;
     }
+
+    public void updateStringNewRecord(String recordKey, String recordValue) {
+        if (!(recordValue == null || recordValue.trim().length() == 0)) {
+            result += recordKey + " = " + recordValue + " and ";
+        }
+    }
+
 }
