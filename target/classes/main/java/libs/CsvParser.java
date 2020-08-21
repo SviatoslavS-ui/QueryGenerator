@@ -22,14 +22,14 @@ public class CsvParser {
         csvReader = new CSVReaderBuilder(fileReader).withCSVParser(parser).build();
         if ((nextRecord = csvReader.readNext()) == null) throw new IOException();
 
-        while ((nextRecord = csvReader.readNext()) != null) updateStringNewRecord(nextRecord[0], nextRecord[1]);
+        while ((nextRecord = csvReader.readNext()) != null) updateResultWithNewRecord(nextRecord[0], nextRecord[1]);
         result = result.substring(0, result.length() - 4) + ")";
         return result;
     }
 
-    public void updateStringNewRecord(String recordKey, String recordValue) {
+    private void updateResultWithNewRecord(String recordKey, String recordValue) {
         if (!(recordValue == null || recordValue.trim().length() == 0)) {
-            result += recordKey + " = " + recordValue + " and ";
+            result += recordKey + " = '" + recordValue + "' and ";
         }
     }
 
