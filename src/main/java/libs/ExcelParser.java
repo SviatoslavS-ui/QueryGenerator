@@ -31,12 +31,12 @@ public class ExcelParser {
             Iterator<Cell> titleCells = firstRow.iterator();
             result += "EXISTS( select * from GamesPrizes where ";
 
-            while (cells.hasNext()) {
+            while (titleCells.hasNext()) {
                 Cell cell = cells.next();
                 Cell titleCell = titleCells.next();
                 if (titleCell.getStringCellValue().contains("Probability") || titleCell.getStringCellValue().contains("RTPPercentage")) {
-                    if (!cells.hasNext()) updateResultIfDropCell();
-                    continue;
+                   if (!cells.hasNext()) updateResultIfDropCell();
+                   continue;
                 }
                 int cellType = cell.getCellType();
                 switch (cellType) {
@@ -67,7 +67,7 @@ public class ExcelParser {
     }
 
     private void updateResultWithNumericCell(String cellKey, double cellValue) {
-        if (cellKey.contains("GameID") || cellKey.contains("NoOfCards"))
+        if (cellKey.contains("ID") || cellKey.contains("NoOfCards"))
             result += cellKey + " = " + (int) cellValue + " ";
         else result += cellKey + " = " + cellValue + " ";
     }

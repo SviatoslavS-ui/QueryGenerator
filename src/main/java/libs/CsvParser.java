@@ -14,7 +14,6 @@ public class CsvParser {
     public String parse(String filename) throws IOException {
         CSVReader csvReader = null;
         String[] nextRecord = null;
-
         result = "EXISTS(select * from Games where ";
 
         FileReader fileReader = new FileReader(filename);
