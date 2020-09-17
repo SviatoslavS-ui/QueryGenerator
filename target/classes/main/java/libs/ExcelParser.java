@@ -15,9 +15,9 @@ public class ExcelParser {
 
     public String parse(String fileName) throws IOException {
 
-        InputStream inputStream = null;
-        XSSFWorkbook myExcelBook = null;
-        Row firstRow = null;
+        InputStream inputStream;
+        XSSFWorkbook myExcelBook;
+        Row firstRow;
 
         inputStream = new FileInputStream(fileName);
         myExcelBook = new XSSFWorkbook(inputStream);
@@ -32,25 +32,31 @@ public class ExcelParser {
             result += "EXISTS( select * from GamesPrizes where ";
 
             while (titleCells.hasNext()) {
-                Cell cell = cells.next();
                 Cell titleCell = titleCells.next();
-                if (titleCell.getStringCellValue().contains("Probability") || titleCell.getStringCellValue().contains("RTPPercentage")) {
-                   if (!cells.hasNext()) updateResultIfDropCell();
-                   continue;
+                Cell cell;
+                if (cells.hasNext()) cell = cells.next();
+                else {
+                    updateResultIfNoCell(titleCell.getStringCellValue());
+                    updateResultIfLastCell(cells.hasNext());
+                    continue;
+                }
+                if (isExeptionColumn(titleCell)) {
+                    if (!cells.hasNext()) updateResultIfDropCell();
+                    continue;
                 }
                 int cellType = cell.getCellType();
                 switch (cellType) {
                     case Cell.CELL_TYPE_STRING:
                         updateResultWithStringCell(titleCell.getStringCellValue(), cell.getStringCellValue());
-                        updateResultIfLastCell(cells.hasNext());
+                        updateResultIfLastCell(titleCells.hasNext());
                         break;
                     case Cell.CELL_TYPE_NUMERIC:
                         updateResultWithNumericCell(titleCell.getStringCellValue(), cell.getNumericCellValue());
-                        updateResultIfLastCell(cells.hasNext());
+                        updateResultIfLastCell(titleCells.hasNext());
                         break;
                     case Cell.CELL_TYPE_BLANK:
                         updateResultWithBlankCell(titleCell.getStringCellValue());
-                        updateResultIfLastCell(cells.hasNext());
+                        updateResultIfLastCell(titleCells.hasNext());
                         break;
                     default:
                         break;
@@ -83,6 +89,15 @@ public class ExcelParser {
 
     private void updateResultIfDropCell() {
         result = result.substring(0, result.length() - 4) + ")";
+    }
+
+    private void updateResultIfNoCell(String cellKey) {
+        result = result.substring(0, result.length() - 2) + " and ";
+        result += cellKey + " = " + "'' ";
+    }
+
+    private boolean isExeptionColumn(Cell workCell) {
+        return workCell.getStringCellValue().contains("Probability") || workCell.getStringCellValue().contains("RTPPercentage");
     }
 
 }
