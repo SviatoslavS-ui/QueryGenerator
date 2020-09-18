@@ -36,8 +36,8 @@ public class ExcelParser {
                 Cell cell;
                 if (cells.hasNext()) cell = cells.next();
                 else {
-                    updateResultIfNoCell(titleCell.getStringCellValue());
-                    updateResultIfLastCell(cells.hasNext());
+                    updateResultWithBlankCell(titleCell.getStringCellValue());
+                    updateResultIfLastCell(titleCells.hasNext());
                     continue;
                 }
                 if (isExeptionColumn(titleCell)) {
@@ -89,11 +89,6 @@ public class ExcelParser {
 
     private void updateResultIfDropCell() {
         result = result.substring(0, result.length() - 4) + ")";
-    }
-
-    private void updateResultIfNoCell(String cellKey) {
-        result = result.substring(0, result.length() - 2) + " and ";
-        result += cellKey + " = " + "'' ";
     }
 
     private boolean isExeptionColumn(Cell workCell) {
