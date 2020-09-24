@@ -36,12 +36,11 @@ public class ExcelParser {
                 Cell cell;
                 if (cells.hasNext()) cell = cells.next();
                 else {
-                    updateResultWithBlankCell(titleCell.getStringCellValue());
-                    updateResultIfLastCell(titleCells.hasNext());
+                    handleNoCellsCase(titleCell.getStringCellValue(), titleCells.hasNext());
                     continue;
                 }
-                if (isExeptionColumn(titleCell)) {
-                    if (!cells.hasNext()) updateResultIfDropCell();
+                if (isExeptionColumn(titleCell.getStringCellValue())) {
+                    if (!titleCells.hasNext()) updateResultIfDropCell();
                     continue;
                 }
                 int cellType = cell.getCellType();
@@ -91,8 +90,28 @@ public class ExcelParser {
         result = result.substring(0, result.length() - 4) + ")";
     }
 
-    private boolean isExeptionColumn(Cell workCell) {
-        return workCell.getStringCellValue().contains("Probability") || workCell.getStringCellValue().contains("RTPPercentage");
+    private boolean isExeptionColumn(String workCell) {
+        return workCell.contains("Probability") || workCell.contains("RTPPercentage");
+    }
+
+    private void handleNoCellsCase(String workCell, boolean hasNext) {
+        if (hasNext) handleNoCellIfHasMore(workCell);
+        else handleNoCellIfNoMore(workCell);
+    }
+
+    private void handleNoCellIfHasMore(String workCell) {
+        if (isExeptionColumn(workCell)) return;
+        else {
+            updateResultWithBlankCell(workCell);
+            updateResultIfLastCell(true);
+        }
+    }
+    private void handleNoCellIfNoMore(String workCell) {
+        if (isExeptionColumn(workCell)) updateResultIfDropCell();
+        else {
+            updateResultWithBlankCell(workCell);
+            updateResultIfLastCell(false);
+        }
     }
 
 }
