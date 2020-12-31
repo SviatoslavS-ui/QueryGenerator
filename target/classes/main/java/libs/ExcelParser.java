@@ -11,7 +11,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelParser {
-    protected String result = "";
+    protected StringBuilder result = new StringBuilder();
 
     public String parse(String fileName) throws IOException {
 
@@ -29,7 +29,7 @@ public class ExcelParser {
             Row row = iteratorRow.next();
             Iterator<Cell> cells = row.iterator();
             Iterator<Cell> titleCells = firstRow.iterator();
-            result += "EXISTS( select * from GamesPrizes where ";
+            result.append("EXISTS( select * from GamesPrizes where ");
 
             while (titleCells.hasNext()) {
                 Cell titleCell = titleCells.next();
@@ -61,33 +61,33 @@ public class ExcelParser {
                         break;
                 }
             }
-            if (iteratorRow.hasNext()) result += "\n AND ";
+            if (iteratorRow.hasNext()) result.append("\n AND ");
         }
-        return result;
+        return result.toString();
     }
 
     private void updateResultWithStringCell(String cellKey, String cellValue) {
         if (cellValue.trim().length() == 0) updateResultWithBlankCell(cellKey);
-        else result += cellKey + " = '" + cellValue + "' ";
+        else result.append(cellKey).append(" = '").append(cellValue).append("' ");
     }
 
     private void updateResultWithNumericCell(String cellKey, double cellValue) {
         if (cellKey.contains("ID") || cellKey.contains("NoOfCards"))
-            result += cellKey + " = " + (int) cellValue + " ";
-        else result += cellKey + " = " + cellValue + " ";
+            result.append(cellKey).append(" = ").append((int) cellValue).append(" ");
+        else result.append(cellKey).append(" = ").append(cellValue).append(" ");
     }
 
     private void updateResultWithBlankCell(String cellKey) {
-        result += cellKey + " = " + "'' ";
+        result.append(cellKey).append(" = '' ");
     }
 
     private void updateResultIfLastCell(boolean hasNext) {
-        if (hasNext) result += "and ";
-        else result += ")";
+        if (hasNext) result.append("and ");
+        else result.append(")");
     }
 
     private void updateResultIfDropCell() {
-        result = result.substring(0, result.length() - 4) + ")";
+        result.delete(result.length() - 4, result.length() - 1).append(")"); // = result.substring(0, result.length() - 4) + ")";
     }
 
     private boolean isExeptionColumn(String workCell) {
@@ -100,12 +100,12 @@ public class ExcelParser {
     }
 
     private void handleNoCellIfHasMore(String workCell) {
-        if (isExeptionColumn(workCell)) return;
-        else {
+        if (!isExeptionColumn(workCell)) {
             updateResultWithBlankCell(workCell);
             updateResultIfLastCell(true);
         }
     }
+
     private void handleNoCellIfNoMore(String workCell) {
         if (isExeptionColumn(workCell)) updateResultIfDropCell();
         else {

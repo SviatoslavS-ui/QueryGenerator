@@ -87,7 +87,7 @@ public class ExcelParser {
     }
 
     private void updateResultIfDropCell() {
-        result.delete(result.length() - 4, result.length() - 1).append(")"); // = result.substring(0, result.length() - 4) + ")";
+        result.delete(result.length() - 4, result.length() - 1).append(")");
     }
 
     private boolean isExeptionColumn(String workCell) {
