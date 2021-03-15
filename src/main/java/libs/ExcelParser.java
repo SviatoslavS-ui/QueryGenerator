@@ -73,7 +73,7 @@ public class ExcelParser {
 
     private void updateResultWithNumericCell(String cellKey, double cellValue) {
         if (cellKey.contains("ID") || cellKey.contains("NoOfCards"))
-            result.append(cellKey).append(" = ").append((int) cellValue).append(" ");
+            result.append(cellKey).append(" = ").append((int)Math.round(cellValue)).append(" ");
         else result.append(cellKey).append(" = ").append(cellValue).append(" ");
     }
 
